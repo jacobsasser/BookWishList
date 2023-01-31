@@ -36,11 +36,12 @@ Shows a single book in a tile with book title and author. We can add/remove book
 
 ### External API
 
-Use https://openlibrary.org/subjects/health.json?limit=10&offset=0 to get list of books.
+Use https://openlibrary.org/subjects/health.json?limit=10&offset=0 to get list of books. <br />
 API query parameters: https://openlibrary.org/dev/docs/api/subjects
 
 
 ### Things we want to see in the App
 <ul>
 <li>Folder layout and Code organization</li>
+<li>Any two test cases</li>
 <ul>

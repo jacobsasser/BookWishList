@@ -3,7 +3,7 @@ import React from "react";
 const MessageBox = () => {
     return (
         <div>
-            <p>This is the message area</p>
+            <p>This is a great message!</p>
         </div>
     )
 }

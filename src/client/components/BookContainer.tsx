@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import BookCard from './BookCard';
 
+type saved = {
+  title:string;
+  authors:string;
+}
+
 type BookContainerProps = {
-  viewCount: number;
   setViewCount: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentlySaved: React.Dispatch<React.SetStateAction<saved[]>>
 };
 
-const BookContainer: React.FC<BookContainerProps> = ({ viewCount, setViewCount }) => {
+const BookContainer: React.FC<BookContainerProps> = ({setViewCount, setCurrentlySaved }) => {
   const [bookData, setBookData] = useState<any[]>([]);
   const [offset, setOffset] = useState(0);
   const limit = 9; // Number of books to fetch in each batch
@@ -58,14 +63,14 @@ const BookContainer: React.FC<BookContainerProps> = ({ viewCount, setViewCount }
   };
 
   return (
-    <div>
+    <div className="BookContainer">
       {bookData.map((book, index) => (
         <BookCard
           key={index}
-          viewCount={viewCount}
           setViewCount={setViewCount}
           title={book.title}
           authors={book.authors}
+          setCurrentlySaved={setCurrentlySaved}
         />
       ))}
       <div ref={loadingRef}>Loading...</div>

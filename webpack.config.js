@@ -13,12 +13,12 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|\.test\.js$/,
         use: ['babel-loader'],
       },
       {
         test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|\.test\.tsx$/,
         use: ['ts-loader'],
       },
     ],
@@ -30,9 +30,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/client/index.html',
       filename: './index.html',
-    }),
-    new CopyPlugin({
-      patterns: [{ from: './src/client/style.css' }],
     }),
   ],
   devServer: {

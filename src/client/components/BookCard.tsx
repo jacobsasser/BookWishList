@@ -1,59 +1,66 @@
 import React from "react";
-
-type Author = {
-  key: string;
-  name: string;
-};
-type saved = {
-    title:string;
-    authors:string;
-}
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Heading,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+import { QueryResult } from "../types";
+import useStore from "../store";
 
 type BookCardProps = {
-  setViewCount: React.Dispatch<React.SetStateAction<number>>;
-  title: string;
-  authors: Author[];
-  setCurrentlySaved: React.Dispatch<React.SetStateAction<saved[]>>
-
+  data: QueryResult;
 };
 
-const BookCard = ({ setViewCount, title, authors, setCurrentlySaved }: BookCardProps) => {
-  const authorsString = authors.map((author) => author.name).join(", ");
-  const [isAdded, setIsAdded] = React.useState(false);
+const BookCard = ({ data }: BookCardProps) => {
+  const savedResults = useStore((state) => state.savedResults);
+  const setSavedResults = useStore((state) => state.setSavedResults);
+  const setMessage = useStore((state) => state.setMessage);
 
-  const handleClick = () => {
-    setViewCount((prevState) => {
-      return isAdded ? --prevState : ++prevState;
-    });
-    setCurrentlySaved((prevState) => {
-        if (!isAdded) {
-          // Add the book to the saved list
-          return [...prevState, { title: title, authors: authorsString }];
-        } else {
-          // Remove the book from the saved list
-          return prevState.filter((book) => {
-            return book.title !== title || book.authors !== authorsString;
-          });
-        }
-      });
-    setIsAdded(!isAdded);
+  const handleAdd = () => {
+    setSavedResults([...savedResults, data]);
+    setMessage(['add', data.title]);
+  };
+  const handleRemove = () => {
+    setSavedResults(savedResults.filter((ele) => ele.key !== data.key));
+    setMessage(['remove', data.title]);
   };
   return (
-    <div className="BookCard">
-      <h2>{title}</h2>
-      <p>Written by:</p>
-      <p className="Authors">{authorsString}</p>
-      <button
-  className="AddRemoveButton"
-  onClick={handleClick}
-  style={{
-    backgroundColor: isAdded ? "red" : "lightblue",
-    transition: "background-color 0.3s",
-  }}
->
-        {isAdded ? "REMOVE" : "ADD"}
-      </button>
-    </div>
+    <Card justify={'center'} align={'center'} colorScheme={'teal'} variant={'outline'}>
+      <CardHeader>
+        <Heading size="md">{data.title}</Heading>
+      </CardHeader>
+      <CardBody>
+        <div style={{ display: "flex" }}>
+          <Text fontWeight="bold">Authors:</Text>
+          <Text marginLeft={"2px"}>
+            {" "}
+            {data.authors.length === 1
+              ? data.authors[0].name
+              : `${data.authors[0].name} et. al`}
+          </Text>
+        </div>
+        <div style={{ display: "flex" }}>
+          <Text fontWeight="bold">Published:</Text>
+          <Text marginLeft={"2px"}>{data.first_publish_year}</Text>
+        </div>
+      </CardBody>
+      <CardFooter>
+        {savedResults.includes(data) ? (
+          <Button colorScheme="teal" variant="solid" onClick={handleRemove}>
+            Remove
+          </Button>
+        ) : (
+          <Button colorScheme="teal" variant="outline" onClick={handleAdd}>
+            Add
+          </Button>
+        )}
+      </CardFooter>
+    </Card>
   );
 };
+
 export default BookCard;

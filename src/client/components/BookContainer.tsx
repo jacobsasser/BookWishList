@@ -51,7 +51,7 @@ const BookContainer = () => {
   }, []);
 
   return (
-    <SimpleGrid columns={3} spacing={4} p='4' pt='20'>
+    <SimpleGrid columns={3} spacing={4} p='4' pt='20' data-cy='bookContainer'>
       {bookResults.length > 0 &&
         bookResults.map((bookData, index) => (
           <BookCard key={index} data={bookData} />

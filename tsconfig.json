@@ -7,5 +7,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "cypress/component/BookContainer.cy.tsx", "cypress/component/MessageBox.cy.tsx"]
 }

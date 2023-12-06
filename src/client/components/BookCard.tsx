@@ -31,10 +31,10 @@ const BookCard = ({ data }: BookCardProps) => {
   return (
     <Card justify={'center'} align={'center'} colorScheme={'teal'} variant={'outline'}>
       <CardHeader>
-        <Heading size="md">{data.title}</Heading>
+        <Heading size="md" data-cy='cardHeader'>{data.title}</Heading>
       </CardHeader>
       <CardBody>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }} data-cy='cardAuthors'>
           <Text fontWeight="bold">Authors:</Text>
           <Text marginLeft={"2px"}>
             {" "}
@@ -43,18 +43,18 @@ const BookCard = ({ data }: BookCardProps) => {
               : `${data.authors[0].name} et. al`}
           </Text>
         </div>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }} data-cy='cardPublish'>
           <Text fontWeight="bold">Published:</Text>
-          <Text marginLeft={"2px"}>{data.first_publish_year}</Text>
+          <Text marginLeft={"2px"}>{" "}{data.first_publish_year}</Text>
         </div>
       </CardBody>
       <CardFooter>
         {savedResults.includes(data) ? (
-          <Button colorScheme="teal" variant="solid" onClick={handleRemove}>
+          <Button colorScheme="teal" variant="solid" onClick={handleRemove} data-cy='cardButton'>
             Remove
           </Button>
         ) : (
-          <Button colorScheme="teal" variant="outline" onClick={handleAdd}>
+          <Button colorScheme="teal" variant="outline" onClick={handleAdd} data-cy='cardButton'>
             Add
           </Button>
         )}

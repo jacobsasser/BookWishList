@@ -33,7 +33,7 @@ const MessageBox = () => {
       zIndex="999"
       h="16"
     >
-      <Center p="2">
+      <Center p="2" data-cy='message'>
         {message[0] === "default" ? (
           <Text color="white">{message[1]}</Text>
         ) : message[0] === "add" ? (
@@ -62,19 +62,20 @@ const MessageBox = () => {
           color='teal'
           onClick={onOpen}
           isDisabled={savedResults.length === 0}
+          data-cy='viewButton'
         >
           {`View (${savedResults.length})`}
         </Button>
       </Center>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent data-cy='modal'>
           <ModalHeader>My WishList</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton data-cy='closeModal'/>
           <ModalBody>
             <UnorderedList>
                 {savedResults.map((books,index) =>
-                    <ListItem key={index}>{books.title}</ListItem>
+                    <ListItem key={index} data-cy='list'>{books.title}</ListItem>
                 )}
             </UnorderedList>
           </ModalBody>

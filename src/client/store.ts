@@ -16,7 +16,7 @@ const useStore = create<Store>((set) =>({
     offset: 0,
     bookResults:[],
     savedResults:[],
-    message:['default', 'Add Books below to get started.'],
+    message:['default', 'Add books below to get started.'],
     setOffset: (offset) => set({offset}),
     setBookResults: (bookResults) => set({bookResults}),
     setSavedResults: (savedResults) => set({savedResults}),
